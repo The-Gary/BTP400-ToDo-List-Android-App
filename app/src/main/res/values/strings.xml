@@ -2,4 +2,7 @@
     <string name="app_name">ToDoList</string>
     <string name="tasks">Tasks</string>
     <string name="add_item">Add Item</string>
+    <string name="new_task">New Task</string>
+    <string name="save">Save</string>
+    <string name="splash_logo">Splash Logo</string>
 </resources>
