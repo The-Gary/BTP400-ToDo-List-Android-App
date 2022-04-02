@@ -2,13 +2,6 @@
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
-      <map>
-        <entry key="..\:/_Seneca/Semester_4_Winter_2022/BTP400_Java/Assignments/ToDoList/app/src/main/res/drawable/ic_baseline_add.xml" value="0.3165" />
-        <entry key="..\:/_Seneca/Semester_4_Winter_2022/BTP400_Java/Assignments/ToDoList/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/_Seneca/Semester_4_Winter_2022/BTP400_Java/Assignments/ToDoList/app/src/main/res/layout/activity_splash.xml" value="0.1956521739130435" />
-        <entry key="..\:/_Seneca/Semester_4_Winter_2022/BTP400_Java/Assignments/ToDoList/app/src/main/res/layout/new_task.xml" value="0.31354166666666666" />
-        <entry key="..\:/_Seneca/Semester_4_Winter_2022/BTP400_Java/Assignments/ToDoList/app/src/main/res/layout/task_layout.xml" value="0.33" />
-      </map>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
