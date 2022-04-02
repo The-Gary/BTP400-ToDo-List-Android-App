@@ -10,6 +10,8 @@ public class ToDoModel {
         this.task = task;
     }
 
+    public ToDoModel() { }
+
     public int getId() {
         return id;
     }
