@@ -5,6 +5,7 @@ public class ToDoModel {
     private String task = "";
 
     public ToDoModel(int id, int status, String task) {
+        System.out.println("TodoModel created");
         this.id = id;
         this.status = status;
         this.task = task;
