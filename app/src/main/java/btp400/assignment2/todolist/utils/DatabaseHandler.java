@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import btp400.assignment2.todolist.model.ToDoModel;
@@ -85,17 +86,16 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
     public void updateStatus(int id, int status){
         ContentValues values = new ContentValues();
         values.put(STATUS, status);
-        // db.update(TODO_TABLE, values, ID + "=?" + Arrays.toString(new String[]{String.valueOf(id)}), null);
-        db.update(TODO_TABLE, values, ID + "=?" + id, null);
+        db.update(TODO_TABLE, values, ID + "= ?", new String[] {String.valueOf(id)});
     }
 
     public void updateTask(int id, String task){
         ContentValues values = new ContentValues();
         values.put(TASK, task);
-        db.update(TODO_TABLE, values, ID + "=?" + id, null);
+        db.update(TODO_TABLE, values, ID + "= ?", new String[] {String.valueOf(id)});
     }
 
     public void deleteTask(int id){
-        db.delete(TODO_TABLE, ID + "=?" + id, null);
+        db.delete(TODO_TABLE, ID + "= ?", new String[] {String.valueOf(id)});
     }
 }

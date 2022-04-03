@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
 
     private List<ToDoModel> tasks = new ArrayList<>(0);
     private ToDoAdapter tasksAdapter;
-    private RecyclerView tasksRecyclerView;
     private FloatingActionButton fab;
     private DatabaseHandler db;
 
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         db = new DatabaseHandler(this);
         db.openDatabase();
 
-        tasksRecyclerView = findViewById(R.id.tasksRecyclerView);
+        RecyclerView tasksRecyclerView = findViewById(R.id.tasksRecyclerView);
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         tasksAdapter = new ToDoAdapter(db, this);
