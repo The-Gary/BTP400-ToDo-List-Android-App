@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import btp400.assignment2.todolist.adapter.ToDoAdapter;
 import btp400.assignment2.todolist.model.ToDoModel;
 import btp400.assignment2.todolist.utils.DatabaseHandler;
 
-public class MainActivity extends AppCompatActivity implements DialogCloseListener{
+public class MainActivity extends AppCompatActivity implements DialogCloseListener {
 
     private List<ToDoModel> tasks = new ArrayList<>(0);
     private ToDoAdapter tasksAdapter;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
     }
 
     @Override
-    public void handleDialogClose(DialogInterface dialog){
+    public void handleDialogClose(DialogInterface dialog) {
         tasks = db.getAllTasks();
         Collections.reverse(tasks);
         tasksAdapter.setToDoList(tasks);

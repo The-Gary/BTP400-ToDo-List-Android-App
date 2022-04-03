@@ -64,8 +64,8 @@ public class AddNewTask extends BottomSheetDialogFragment {
             isUpdate = true;
             String task = bundle.getString("task");
             newTaskText.setText(task);
-            if(task.length() > 0) {
-                newTaskSaveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary));
+            if (task.length() > 0) {
+                newTaskSaveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
             }
         }
         newTaskText.addTextChangedListener(new TextWatcher() {
@@ -76,13 +76,12 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.toString().equals("")){
+                if (charSequence.toString().equals("")) {
                     newTaskSaveButton.setEnabled(false);
                     newTaskSaveButton.setTextColor(Color.DKGRAY);
-                }
-                else {
+                } else {
                     newTaskSaveButton.setEnabled(true);
-                    newTaskSaveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary));
+                    newTaskSaveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
                 }
             }
 
@@ -95,23 +94,25 @@ public class AddNewTask extends BottomSheetDialogFragment {
         final boolean finalIsUpdate = isUpdate;
         newTaskSaveButton.setOnClickListener(view1 -> {
             String text = newTaskText.getText().toString();
-            if (finalIsUpdate) {
-                db.updateTask(bundle.getInt("id"), text);
-            } else {
-                ToDoModel task = new ToDoModel();
-                task.setTask(text);
-                task.setStatus(0);
-                db.insertTask(task);
+            if (!text.equals("")) {
+                if (finalIsUpdate) {
+                    db.updateTask(bundle.getInt("id"), text);
+                } else {
+                    ToDoModel task = new ToDoModel();
+                    task.setTask(text);
+                    task.setStatus(0);
+                    db.insertTask(task);
+                }
+                dismiss();
             }
-            dismiss();
         });
     }
 
     @Override
-    public void onDismiss(@NonNull DialogInterface dialog){
+    public void onDismiss(@NonNull DialogInterface dialog) {
         Activity activity = getActivity();
         if (activity instanceof DialogCloseListener) {
-            ((DialogCloseListener)activity).handleDialogClose(dialog);
+            ((DialogCloseListener) activity).handleDialogClose(dialog);
         }
     }
 }

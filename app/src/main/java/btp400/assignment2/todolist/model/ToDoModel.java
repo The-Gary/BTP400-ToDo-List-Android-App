@@ -4,7 +4,8 @@ public class ToDoModel {
     private int id = 0, status = 0;
     private String task = "";
 
-    public ToDoModel() { }
+    public ToDoModel() {
+    }
 
     public int getId() {
         return id;

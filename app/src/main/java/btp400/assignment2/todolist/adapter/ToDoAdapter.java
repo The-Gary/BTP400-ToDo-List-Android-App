@@ -40,10 +40,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
         holder.task.setText(item.getTask());
         holder.task.setChecked(toBoolean(item.getStatus()));
         holder.task.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if (isChecked){
+            if (isChecked) {
                 db.updateStatus(item.getId(), 1);
-            }
-            else {
+            } else {
                 db.updateStatus(item.getId(), 0);
             }
         });
@@ -62,18 +61,18 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
         notifyDataSetChanged();
     }
 
-    public Context getContext(){
+    public Context getContext() {
         return activity;
     }
 
-    public void deleteItem(int position){
+    public void deleteItem(int position) {
         ToDoModel item = toDoList.get(position);
         db.deleteTask(item.getId());
         toDoList.remove(position);
         notifyItemRemoved(position);
     }
 
-    public void editItem(int position){
+    public void editItem(int position) {
         ToDoModel item = toDoList.get(position);
         Bundle bundle = new Bundle();
         bundle.putInt("id", item.getId());
