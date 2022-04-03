@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import btp400.assignment2.todolist.adapter.ToDoAdapter;
 
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
-    private ToDoAdapter adapter;
+    private final ToDoAdapter adapter;
 
     public RecyclerItemTouchHelper(ToDoAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
@@ -33,13 +33,9 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         if (direction == ItemTouchHelper.LEFT) {
             AlertDialog.Builder builder = new AlertDialog.Builder(adapter.getContext());
             builder.setTitle("Delete Task");
-            builder.setMessage("Are you sure you want to delete this task?");
-            builder.setPositiveButton("Confirm", (dialog, which) -> {
-                adapter.deleteItem(position);
-            });
-            builder.setNegativeButton("Cancel", (dialog, which) -> {
-                adapter.notifyItemChanged(viewHolder.getAbsoluteAdapterPosition());
-            });
+            builder.setMessage("Are you sure you want to delete this item?");
+            builder.setPositiveButton("Confirm", (dialog, which) -> adapter.deleteItem(position));
+            builder.setNegativeButton("Cancel", (dialog, which) -> adapter.notifyItemChanged(viewHolder.getAbsoluteAdapterPosition()));
             AlertDialog dialog = builder.create();
             dialog.show();
         }

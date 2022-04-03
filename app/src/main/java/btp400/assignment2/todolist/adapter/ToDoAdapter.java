@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,8 +20,8 @@ import btp400.assignment2.todolist.utils.DatabaseHandler;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder> {
     private List<ToDoModel> toDoList;
-    private MainActivity activity;
-    private DatabaseHandler db;
+    private final MainActivity activity;
+    private final DatabaseHandler db;
 
     public ToDoAdapter(DatabaseHandler db, MainActivity activity) {
         this.db = db;
@@ -40,15 +39,12 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
         ToDoModel item = toDoList.get(position);
         holder.task.setText(item.getTask());
         holder.task.setChecked(toBoolean(item.getStatus()));
-        holder.task.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked){
-                    db.updateStatus(item.getId(), 1);
-                }
-                else {
-                    db.updateStatus(item.getId(), 0);
-                }
+        holder.task.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if (isChecked){
+                db.updateStatus(item.getId(), 1);
+            }
+            else {
+                db.updateStatus(item.getId(), 0);
             }
         });
     }

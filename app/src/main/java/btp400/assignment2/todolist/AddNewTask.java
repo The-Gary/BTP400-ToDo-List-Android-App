@@ -3,7 +3,6 @@ package btp400.assignment2.todolist;
 import static android.view.WindowManager.*;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -45,7 +44,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.new_task, container, false);
-        Objects.requireNonNull(getDialog()).getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        Objects.requireNonNull(getDialog()).getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return view;
     }
 

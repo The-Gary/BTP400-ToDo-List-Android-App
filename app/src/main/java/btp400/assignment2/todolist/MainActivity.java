@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
 
     private List<ToDoModel> tasks = new ArrayList<>(0);
     private ToDoAdapter tasksAdapter;
-    private FloatingActionButton fab;
     private DatabaseHandler db;
 
     @Override
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(tasksAdapter));
         itemTouchHelper.attachToRecyclerView(tasksRecyclerView);
 
-        fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG));
 
         tasks = db.getAllTasks();
@@ -56,6 +55,6 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         tasks = db.getAllTasks();
         Collections.reverse(tasks);
         tasksAdapter.setToDoList(tasks);
-        tasksAdapter.notifyDataSetChanged();
+        tasksAdapter.notifyItemChanged(tasksAdapter.getItemCount());
     }
 }
