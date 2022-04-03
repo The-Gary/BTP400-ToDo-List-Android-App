@@ -1,13 +1,12 @@
 package btp400.assignment2.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.View;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -42,14 +41,11 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         tasksAdapter = new ToDoAdapter(db, this);
         tasksRecyclerView.setAdapter(tasksAdapter);
 
-        fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener(){
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(tasksAdapter));
+        itemTouchHelper.attachToRecyclerView(tasksRecyclerView);
 
-            @Override
-            public void onClick(View view) {
-                AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG);
-            }
-        });
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG));
 
         tasks = db.getAllTasks();
         Collections.reverse(tasks);
@@ -62,6 +58,5 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         Collections.reverse(tasks);
         tasksAdapter.setToDoList(tasks);
         tasksAdapter.notifyDataSetChanged();
-
     }
 }
