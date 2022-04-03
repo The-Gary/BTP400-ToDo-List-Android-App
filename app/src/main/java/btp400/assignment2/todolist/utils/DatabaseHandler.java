@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import btp400.assignment2.todolist.model.ToDoModel;
@@ -43,12 +42,6 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
     }
 
-    public void closeDatabase(){
-        if(db != null){
-            db.close();
-        }
-    }
-
     public void insertTask(ToDoModel task) {
         ContentValues values = new ContentValues();
         values.put(TASK, task.getTask());
@@ -66,9 +59,9 @@ public class DatabaseHandler  extends SQLiteOpenHelper {
                 if(cur.moveToFirst()){
                     do{
                         ToDoModel task = new ToDoModel();
-                        task.setId(cur.getInt(cur.getColumnIndex(ID)));
-                        task.setTask(cur.getString(cur.getColumnIndex(TASK)));
-                        task.setStatus(cur.getInt(cur.getColumnIndex(STATUS)));
+                        task.setId(cur.getInt(cur.getColumnIndexOrThrow(ID)));
+                        task.setTask(cur.getString(cur.getColumnIndexOrThrow(TASK)));
+                        task.setStatus(cur.getInt(cur.getColumnIndexOrThrow(STATUS)));
                         taskList.add(task);
                     }
                     while(cur.moveToNext());
