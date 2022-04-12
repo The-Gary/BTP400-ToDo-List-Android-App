@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 import btp400.assignment2.todolist.adapter.ToDoAdapter;
+import btp400.assignment2.todolist.logger.UILogger;
 import btp400.assignment2.todolist.model.ToDoModel;
 import btp400.assignment2.todolist.utils.DatabaseHandler;
 
@@ -44,16 +45,20 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         itemTouchHelper.attachToRecyclerView(tasksRecyclerView);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG));
+        fab.setOnClickListener(view -> {
+            AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG);
+            UILogger.onClick("FAB button", "Add new task button clicked");
+            UILogger.onDialogBoxOpen();
+        });
 
         tasks = db.getAllTasks();
         Collections.reverse(tasks);
         tasksAdapter.setToDoList(tasks);
-        db.close();
     }
 
     @Override
     public void handleDialogClose(DialogInterface dialog) {
+        UILogger.onDialogBoxClose();
         tasks = db.getAllTasks();
         Collections.reverse(tasks);
         tasksAdapter.setToDoList(tasks);
