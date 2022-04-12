@@ -85,15 +85,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(STATUS, status);
         db.update(TODO_TABLE, values, ID + "= ?", new String[]{String.valueOf(id)});
+        DatabaseLogger.onUpdateStatus(Name, values.getAsString(STATUS));
     }
 
     public void updateTask(int id, String task) {
         ContentValues values = new ContentValues();
         values.put(TASK, task);
         db.update(TODO_TABLE, values, ID + "= ?", new String[]{String.valueOf(id)});
+        DatabaseLogger.onUpdateTask(Name, task);
     }
 
     public void deleteTask(int id) {
         db.delete(TODO_TABLE, ID + "= ?", new String[]{String.valueOf(id)});
+        DatabaseLogger.onDeleteTask(Name, id);
     }
 }
