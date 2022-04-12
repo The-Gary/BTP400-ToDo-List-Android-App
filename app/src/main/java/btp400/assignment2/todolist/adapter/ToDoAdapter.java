@@ -64,7 +64,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
     public Context getContext() {
         return activity;
     }
-
+    /**
+     * this method gets the position of the task and removes it from the list and database
+     * @param position*/
     public void deleteItem(int position) {
         ToDoModel item = toDoList.get(position);
         db.deleteTask(item.getId());
