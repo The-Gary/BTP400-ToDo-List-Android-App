@@ -11,7 +11,6 @@ public class TouchHelperLogger {
     public static void onSwipeRight() {
         Log.w(TAG, "task swiped right" );
     }
-
     public static void ColorIndicator(String color){
         Log.w(TAG, "Color after swipe: " + color);
     }

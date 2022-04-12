@@ -29,6 +29,7 @@ public class DatabaseLogger {
         Log.i(TAG, "Updated status in table: " + tableName + " values: " + values);
     }
 
+
     public static void onUpdateTask(String tableName, String values) {
         Log.i(TAG, "Updated task in table: " + tableName + " values: " + values);
     }

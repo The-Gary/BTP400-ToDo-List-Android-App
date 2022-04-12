@@ -15,6 +15,7 @@ import java.util.List;
 import btp400.assignment2.todolist.AddNewTask;
 import btp400.assignment2.todolist.MainActivity;
 import btp400.assignment2.todolist.R;
+import btp400.assignment2.todolist.logger.AdapterLogger;
 import btp400.assignment2.todolist.model.ToDoModel;
 import btp400.assignment2.todolist.utils.DatabaseHandler;
 
@@ -31,6 +32,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
     @NonNull
     public ToDoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_layout, parent, false);
+        AdapterLogger.onBindViewHolder();
         return new ToDoViewHolder(itemView);
     }
 
@@ -45,6 +47,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
             } else {
                 db.updateStatus(item.getId(), 0);
             }
+            AdapterLogger.onStatusChange(position);
         });
     }
 
@@ -58,6 +61,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
 
     public void setToDoList(List<ToDoModel> toDoList) {
         this.toDoList = toDoList;
+        AdapterLogger.onSetTodoList();
         notifyDataSetChanged();
     }
 
@@ -71,6 +75,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
         ToDoModel item = toDoList.get(position);
         db.deleteTask(item.getId());
         toDoList.remove(position);
+        AdapterLogger.onDeleteItem(position);
         notifyItemRemoved(position);
     }
 
@@ -82,6 +87,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
         AddNewTask addNewTask = new AddNewTask();
         addNewTask.setArguments(bundle);
         addNewTask.show(activity.getSupportFragmentManager(), AddNewTask.TAG);
+        AdapterLogger.onEditItem(position);
     }
 
     public static class ToDoViewHolder extends RecyclerView.ViewHolder {
