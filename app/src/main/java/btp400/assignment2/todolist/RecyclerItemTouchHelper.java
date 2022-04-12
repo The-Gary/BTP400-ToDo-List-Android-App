@@ -1,5 +1,7 @@
 package btp400.assignment2.todolist;
 
+import static btp400.assignment2.todolist.logger.TouchHelperLogger.*;
+
 import android.app.AlertDialog;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -13,7 +15,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import btp400.assignment2.todolist.adapter.ToDoAdapter;
-
+/**
+ * <h1>Touch Helper</h1>
+ * this class is designed to */
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     private final ToDoAdapter adapter;
 
@@ -37,8 +41,10 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
             builder.setPositiveButton("Confirm", (dialog, which) -> adapter.deleteItem(position));
             builder.setNegativeButton("Cancel", (dialog, which) -> adapter.notifyItemChanged(viewHolder.getAbsoluteAdapterPosition()));
             AlertDialog dialog = builder.create();
+            onSwipeLeft();
             dialog.show();
         } else {
+            onSwipeRight();
             adapter.editItem(position);
         }
     }
@@ -56,9 +62,12 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         if (dX > 0) {
             icon = ContextCompat.getDrawable(adapter.getContext(), R.drawable.ic_baseline_edit);
             background = new ColorDrawable(ContextCompat.getColor(adapter.getContext(), R.color.colorPrimary));
+            ColorIndicator(String.format("#%06X", R.color.colorPrimary));
+
         } else {
             icon = ContextCompat.getDrawable(adapter.getContext(), R.drawable.ic_baseline_delete);
             background = new ColorDrawable(Color.RED);
+            ColorIndicator(String.format("#%06X", Color.RED));
         }
 
         assert icon != null;
