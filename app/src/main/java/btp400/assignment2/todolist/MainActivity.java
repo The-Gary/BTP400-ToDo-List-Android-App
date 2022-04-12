@@ -1,21 +1,29 @@
 package btp400.assignment2.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import btp400.assignment2.todolist.adapter.ToDoAdapter;
 import btp400.assignment2.todolist.model.ToDoModel;
+import btp400.assignment2.todolist.utils.DatabaseHandler;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DialogCloseListener {
 
     private List<ToDoModel> tasks = new ArrayList<>(0);
+    private ToDoAdapter tasksAdapter;
+    private DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,22 +31,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
+        db = new DatabaseHandler(this);
+        db.openDatabase();
+
         RecyclerView tasksRecyclerView = findViewById(R.id.tasksRecyclerView);
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ToDoAdapter tasksAdapter = new ToDoAdapter(this);
+        tasksAdapter = new ToDoAdapter(db, this);
         tasksRecyclerView.setAdapter(tasksAdapter);
 
-        ToDoModel task = new ToDoModel(1, 0, "This is a task");
-        ToDoModel task2 = new ToDoModel(2, 0, "This is another task");
-        tasks.add(task);
-        tasks.add(task);
-        tasks.add(task);
-        tasks.add(task);
-        tasks.add(task2);
-        tasks.add(task2);
-        tasks.add(task2);
-        tasks.add(task2);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(tasksAdapter));
+        itemTouchHelper.attachToRecyclerView(tasksRecyclerView);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG));
+
+        tasks = db.getAllTasks();
+        Collections.reverse(tasks);
         tasksAdapter.setToDoList(tasks);
+    }
+
+    @Override
+    public void handleDialogClose(DialogInterface dialog) {
+        tasks = db.getAllTasks();
+        Collections.reverse(tasks);
+        tasksAdapter.setToDoList(tasks);
+        tasksAdapter.notifyItemChanged(tasksAdapter.getItemCount());
     }
 }
