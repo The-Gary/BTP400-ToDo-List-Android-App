@@ -16,21 +16,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import btp400.assignment2.todolist.adapter.ToDoAdapter;
 /**
- * <h1>Touch Helper</h1>
- * this class is designed to */
+ * <h1>RecyclerItemTouchHelper</h1>
+ * this class is designed to give an appropriate respond to different touch events*/
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
+    /**
+     * using this adapter we can see which element we are working on*/
     private final ToDoAdapter adapter;
 
     public RecyclerItemTouchHelper(ToDoAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.adapter = adapter;
     }
-
+    /**
+     *we are not using this method from ItemTouchHelper class so it returns false */
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
         return false;
     }
-
+    /**
+     *this method deletes or edits the task based on the direction of the swipe
+     * @param viewHolder
+     * @param direction */
     @Override
     public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
         final int position = viewHolder.getAbsoluteAdapterPosition();
@@ -49,6 +55,8 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         }
     }
 
+    /**
+     * handles the icons for swiping left and right, and the background of the task on swiping*/
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
