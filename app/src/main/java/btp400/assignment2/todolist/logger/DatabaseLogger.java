@@ -1,18 +1,9 @@
 package btp400.assignment2.todolist.logger;
 
-import android.os.Environment;
 import android.util.Log;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
 
 public class DatabaseLogger {
     private static final String TAG = "DatabaseLogger";
-
 
     public static void onCreate(String tableName) {
         Log.w(TAG, "Created table: " + tableName);
@@ -32,5 +23,18 @@ public class DatabaseLogger {
 
     public static void onGetAllTasks(String tableName) {
         Log.i(TAG, "Getting all tasks from table: " + tableName);
+    }
+
+    public static void onUpdateStatus(String tableName, String values) {
+        Log.i(TAG, "Updated status in table: " + tableName + " values: " + values);
+    }
+
+
+    public static void onUpdateTask(String tableName, String values) {
+        Log.i(TAG, "Updated task in table: " + tableName + " values: " + values);
+    }
+
+    public static void onDeleteTask(String tableName, int id) {
+        Log.i(TAG, "Deleted task in table: " + tableName + " id: " + id);
     }
 }

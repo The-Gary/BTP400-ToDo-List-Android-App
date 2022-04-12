@@ -21,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Objects;
 
+import btp400.assignment2.todolist.logger.UILogger;
 import btp400.assignment2.todolist.model.ToDoModel;
 import btp400.assignment2.todolist.utils.DatabaseHandler;
 
@@ -101,6 +102,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
         final boolean finalIsUpdate = isUpdate;
         newTaskSaveButton.setOnClickListener(view1 -> {
+            UILogger.onClick(TAG, "Save button clicked");
             String text = newTaskText.getText().toString();
             if (!text.equals("")) {
                 if (finalIsUpdate) {
