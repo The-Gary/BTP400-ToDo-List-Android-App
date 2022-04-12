@@ -1,5 +1,6 @@
 package btp400.assignment2.todolist.model;
-
+/**<h1>ToDoModel</h1>
+ * this class contains the basic attributes,getters and setters for a task*/
 public class ToDoModel {
     private int id = 0, status = 0;
     private String task = "";

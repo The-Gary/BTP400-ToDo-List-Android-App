@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import btp400.assignment2.todolist.logger.DatabaseLogger;
 import btp400.assignment2.todolist.model.ToDoModel;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -57,6 +58,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TODO_TABLE);
+        DatabaseLogger.onCreate(Name);
     }
 
     /**
@@ -69,6 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TODO_TABLE);
         onCreate(db);
+        DatabaseLogger.onUpgrade(Name, oldVersion, newVersion);
     }
 
     /**
@@ -76,6 +79,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     public void openDatabase() {
         db = this.getWritableDatabase();
+        DatabaseLogger.onOpen(Name);
     }
 
     /**
@@ -87,6 +91,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(TASK, task.getTask());
         values.put(STATUS, 0);
         db.insert(TODO_TABLE, null, values);
+        DatabaseLogger.onInsert(Name, task.getTask());
     }
 
     /**
@@ -111,6 +116,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     while (cur.moveToNext());
                 }
             }
+            DatabaseLogger.onGetAllTasks(Name);
         } finally {
             db.endTransaction();
             assert cur != null;

@@ -22,18 +22,21 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
     private List<ToDoModel> toDoList;
     private final MainActivity activity;
     private final DatabaseHandler db;
-
+    /**custom constructor*/
     public ToDoAdapter(DatabaseHandler db, MainActivity activity) {
         this.db = db;
         this.activity = activity;
     }
-
+    /**
+     * this method handles the view holder when it gets created*/
     @NonNull
     public ToDoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_layout, parent, false);
         return new ToDoViewHolder(itemView);
     }
-
+    /**this method receives a holder and a position and using these two will set  text and check status of the task
+     * @param position
+     * @param holder */
     public void onBindViewHolder(ToDoViewHolder holder, int position) {
         db.openDatabase();
         ToDoModel item = toDoList.get(position);
@@ -47,7 +50,8 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
             }
         });
     }
-
+    /**
+     * this method returns the size of the tasks list*/
     public int getItemCount() {
         return toDoList.size();
     }
@@ -55,7 +59,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
     private boolean toBoolean(int number) {
         return number == 1;
     }
-
+/**
+ * this method receives a List and sets the current list to the new list
+ * @param toDoList */
     public void setToDoList(List<ToDoModel> toDoList) {
         this.toDoList = toDoList;
         notifyDataSetChanged();
@@ -64,14 +70,18 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
     public Context getContext() {
         return activity;
     }
-
+    /**
+     * this method gets the position of the task and removes it from the list and database
+     * @param position*/
     public void deleteItem(int position) {
         ToDoModel item = toDoList.get(position);
         db.deleteTask(item.getId());
         toDoList.remove(position);
         notifyItemRemoved(position);
     }
-
+/**
+ * this method gets the position of the task and updates it on the list and database
+ * @param position */
     public void editItem(int position) {
         ToDoModel item = toDoList.get(position);
         Bundle bundle = new Bundle();

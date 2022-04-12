@@ -9,7 +9,9 @@ import android.os.Handler;
 import java.util.Objects;
 
 public class SplashActivity extends AppCompatActivity {
-
+/**
+ *this method handles the creation of the splash activity
+ * @param savedInstanceState*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

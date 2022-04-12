@@ -24,6 +24,9 @@ import java.util.Objects;
 import btp400.assignment2.todolist.model.ToDoModel;
 import btp400.assignment2.todolist.utils.DatabaseHandler;
 
+/**
+ * <h1>AddNewTask</h1>
+ * this class is in charge of handling the new tasks that get added by the user*/
 public class AddNewTask extends BottomSheetDialogFragment {
     public static final String TAG = "ActionBottomDialog";
 
@@ -31,23 +34,28 @@ public class AddNewTask extends BottomSheetDialogFragment {
     private Button newTaskSaveButton;
     private DatabaseHandler db;
 
+    /**
+     *this method is used for returning an object of AddNewTask and gives us the ability to access other methods form this class in other classes*/
     public static AddNewTask newInstance() {
         return new AddNewTask();
     }
-
+    /**
+    * this method is used for initializing the creation of a fragment*/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, R.style.DialogStyle);
     }
-
+    /**
+     *this method the view hierarchy linked with the fragment is created and returned.*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.new_task, container, false);
         Objects.requireNonNull(getDialog()).getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return view;
     }
-
+    /**
+     * in this method we will define the necessary code for executing the functions for our dialog fragment.*/
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -107,7 +115,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
             }
         });
     }
-
+    /**this function is called When the fragment is no longer associated to its activity.*/
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         Activity activity = getActivity();
