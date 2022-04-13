@@ -25,6 +25,12 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
     private ToDoAdapter tasksAdapter;
     private DatabaseHandler db;
 
+    /**
+     * This method is the main method which is responsible for
+     * creating, initialising, and changing the database
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         db.close();
     }
 
+    /**
+     * This method will get the task list from database and then it arrange them based on the date created.
+     * Finally it will save the changes.
+     * @param dialog
+     */
     @Override
     public void handleDialogClose(DialogInterface dialog) {
         tasks = db.getAllTasks();
